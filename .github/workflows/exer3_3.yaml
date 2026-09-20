@@ -1,0 +1,36 @@
+name: The subfolder builder
+
+
+on:
+    push:
+    
+    workflow_dispatch: 
+
+
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: app
+
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Set python version 
+              uses: actions/setup-python@v4
+              with:
+                python-version: '3.11'  
+
+            - name: Current working directory 
+              run: |
+                echo "The current working directory is $(pwd)"
+                ls
+
+            - name: Finish message
+              run: echo "Build folder confirmed"
+
+            
