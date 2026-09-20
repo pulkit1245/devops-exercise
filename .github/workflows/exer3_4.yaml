@@ -20,10 +20,6 @@ jobs:
             
             - name: Final message
               run: echo "Setup done"
-
-            - name: Deliberate failure
-              run: exit 1
-
             
     verify: 
         runs-on: ubuntu-latest
