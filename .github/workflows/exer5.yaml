@@ -1,0 +1,79 @@
+# name: The incident switchboard
+# run-name: The severity is ${{inputs.severity}} The deep scan is ${{inputs.deep_scan==true && 'SCAN'}}
+
+# on:
+#     push:
+    
+#     pull_request:
+#         branches:
+#             - main 
+        
+#     workflow_dispatch:
+#         inputs:
+#             severity:
+#                 type: choice
+#                 required: true
+#                 default: low
+#                 options:
+#                     - low
+#                     - medium 
+#                     - high 
+
+
+#             deep_scan:
+#                 type: boolean 
+#                 default: false
+
+#             skip_tests:
+#                 type: boolean 
+#                 default: false
+
+#             reason:
+#                 type: string
+#                 required: true
+
+
+
+# jobs:
+#     triage:
+#         runs-on: ubuntu-latest
+#         steps: 
+#             - name: Print Event , ref and number 
+#               run: |
+#                 echo "This event is started by ${{github.event}}"
+#                 echo "The reference ${{github.ref_name}}"
+#                 echo "The event number is ${{github.event.number}}"
+
+#             - name: '[Debug] Print Details'
+#               if: github.event_name=='workflow_dispatch'
+#               run: |
+#                 echo "The severity is ${{inputs.severity}}"
+#                 echo "The deep scan is asked ${{inputs.deep_scan && 'ASKED' || 'NOT ASKED'}}"
+#                 echo "The tests are skipped ${{inputs.skip_tests && 'Skipped' || 'Not Skipped'}}"
+#                 echo "The reason given is ${{inputs.reason}}"
+
+#             - name: '[Debug] Print Details'
+#               if: github.event_name=='main'
+#               run: echo "The run was automatic and no reason was supplied"
+
+#             - name: Print message for low severity
+#               if: inputs.severity=='low'
+#               run: echo "The severity is low"
+#             - name: Print message for medium severity
+#               if: inputs.severity=='medium'
+#               run: echo "The severity is medium"
+#             - name: Print message for High severity
+#               if: inputs.severity=='high'
+#               run: echo "The severity is high"
+
+#     tests:
+#         runs-on: ubuntu-latest 
+#         needs: triage
+#         steps:
+#             - name: Print 
+            
+
+               
+
+        
+                

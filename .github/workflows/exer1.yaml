@@ -1,0 +1,58 @@
+name: Exercise1
+
+on:
+    push:
+
+
+jobs:
+    system-info:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print System info 
+              run: |
+                echo "The OS name is $(uname -s)"
+                echo "The Kernel version is $(uname -r)"
+                echo "The disk space free is"
+                df -h/
+                echo "The current date and time is"
+                date 
+            - name: Install and Use tree
+              run: |
+                sudo apt-get update 
+                sudo apt-get install -y tree
+
+            - name: Display the folder Structure
+              run: |
+                echo "The folder Structure is ${HOME}"
+                tree -L 2 "$HOME"
+    
+
+    tool_check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Installing jq
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y jq
+
+            - name: Create a json file
+              run: |
+                cat > report.json << 'EOF'
+                {
+                  "project":"System Report",
+                  "environment":"Github actions"
+                  "status": "Success"
+                }
+                EOF
+              
+            - name: Read a value using jq
+              run: echo "Project is $(jq -r '.project' report.json)"
+
+            - name: Print installed versions 
+              run: |
+                python3 --version 
+                tree --version 
+                jq --version 
+
+            - name: Report completed 
+              run: echo "Report complete"
