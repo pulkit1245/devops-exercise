@@ -13,7 +13,7 @@ jobs:
                 echo "The OS name is $(uname -s)"
                 echo "The Kernel version is $(uname -r)"
                 echo "The disk space free is"
-                df -h/
+                df -h /
                 echo "The current date and time is"
                 date 
             - name: Install and Use tree
@@ -40,7 +40,7 @@ jobs:
                 cat > report.json << 'EOF'
                 {
                   "project":"System Report",
-                  "environment":"Github actions"
+                  "environment":"Github actions",
                   "status": "Success"
                 }
                 EOF
@@ -51,7 +51,7 @@ jobs:
             - name: Print installed versions 
               run: |
                 python3 --version 
-                tree --version 
+                git --version 
                 jq --version 
 
             - name: Report completed 
