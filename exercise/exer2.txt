@@ -45,3 +45,6 @@ Has one job called watch that runs on the latest Ubuntu runner
 Prints the event name that triggered the run
 Prints the current date and time
 Finishes by printing "Release watch complete"
+
+
+this is just a change to check the trigger
