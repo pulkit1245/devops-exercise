@@ -1,0 +1,30 @@
+name: The multi-trigger detective
+
+on: 
+    push:
+    
+    pull_request:
+
+    workflow_dispatch:
+
+
+jobs:
+    detect:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: The event that triggered the run
+              run: echo "The event is triggered by ${{github.event_name}}"
+
+            - name: Print if the event is push
+              if: github.event_name=='push'
+              run: echo "the branch that was pushed to ${{github.ref_name}}"
+
+            - name: Print if the event is pull request
+              if: github.event_name=='pull_request'
+              run: | 
+                echo "This event is source by ${{github.head_ref}} "
+                echo "This event is target to ${{github.base_ref}}"
+
+            - name: Print final message
+              run: echo "Detective work complete"

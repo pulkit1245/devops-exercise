@@ -1,0 +1,68 @@
+name: Artifacts exercise
+
+on:
+    workflow_dispatch:
+    
+    schedule:
+        - cron: '02 02 * * *'
+
+
+env: 
+    build-artifact-key : app-${{github.sha}}
+
+jobs:
+    test-build:
+        runs-on: ubuntu-latest
+
+        defaults:
+            run:
+                working-directory: react-app
+
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v7
+
+            - name: Setup Node
+              uses: actions/setup-node@v7
+              with:
+                node-version: '24.x'
+                
+            - name: Download Cached dependencies
+              uses: actions/cache@v7
+              id: cache
+              with:
+                path: react-app/node_modules
+                
+                key: deps-node-modules-${{ hashFiles('react-app/package-lock.json')}}
+
+            - name: Caching
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: npm ci
+
+            - name: Project unit test 
+              run: npm run test 
+            
+            - name: Build react app
+              run: npm run build 
+
+            - name: Uploading artifacts
+              uses: actions/upload-artifact@v7
+              with:
+                name: ${{env.build-artifact-key}}
+                path: react-app/build
+
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs: test-build
+
+        steps:
+            - name: Download Artifacts
+              uses: actions/download-artifact@v7
+              with:
+                name: ${{env.build-artifact-key}}
+                path: build
+
+            - name: Folder Structure
+              run: ls -R
+
